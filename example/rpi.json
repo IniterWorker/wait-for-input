@@ -1,0 +1,22 @@
+{
+    "poll": {
+        "maxfd": 128,
+        "timeout": -1
+    },
+    "gpios": [
+        {
+            "name": "btn_reset_network",
+            "gpio_number": 22,
+            "sh": "echo btn network reset",
+            "edge": "falling",
+            "direction": "in"
+        },
+        {
+            "name": "btn_reboot",
+            "gpio_number": 27,
+            "sh": "echo reboot",
+            "edge": "falling",
+            "direction": "in"
+        }
+    ]
+}
