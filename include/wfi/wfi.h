@@ -44,9 +44,9 @@ int fork_sh_execute(const char *command);
 int wfi_check_access(const char *path);
 int wfi_wait_for_input(struct wfi_core *core);
 int wfi_parse_json(struct wfi_core *core, const char *buffer);
-int wfi_core_init(struct wfi_core *core, const char *filename);
 
 /* core */
+int wfi_core_init(struct wfi_core *core, const char *filename);
 int wfi_core_attach(struct wfi_core *core);
 int wfi_core_release(struct wfi_core *core);
 void wfi_core_destroy(struct wfi_core *core);
