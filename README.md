@@ -69,5 +69,4 @@ wait_for_input ~/rpi.json
 ```
 
 ### ToDo
-- Debouncing
 - Describe non-poll gpios
