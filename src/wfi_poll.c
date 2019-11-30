@@ -24,6 +24,7 @@ int
 wfi_wait_for_input(struct wfi_core *core) {
     struct pollfd *pfds = core->pfds;
     struct wfi_pfdd *pfdds = core->pfdds;
+    struct timespec current_time;
     uint8_t buf[8];
     int index;
     int ret;
@@ -31,6 +32,7 @@ wfi_wait_for_input(struct wfi_core *core) {
     while (1) {
         ret = poll(pfds, core->numberfd, core->timeout);
         index = 0;
+        clock_gettime(CLOCK_MONOTONIC, &current_time);
         while (index < core->numberfd)
         {
             lseek(pfds[index].fd, 0, SEEK_SET);
@@ -44,10 +46,18 @@ wfi_wait_for_input(struct wfi_core *core) {
                 }
                 /* safety read */
                 buf[7] = 0;
-                /* execute user command process */
-                ret = wfi_execute(&pfdds[index], atoi(buf));
-                if (ret != 0) {
-                    fprintf(stderr, "wfi execute: %s - code: %d\n", strerror(ret), ret);
+                /* check debounce */
+                const size_t debounce_sec = pfdds[index].debounce_ms / 1000;
+                const size_t debounce_ns = (pfdds[index].debounce_ms % 1000) * 1000000;
+                if (pfdds[index].last_time.tv_sec + debounce_sec < current_time.tv_sec 
+                || (pfdds[index].last_time.tv_sec + debounce_sec == current_time.tv_sec && 
+                    pfdds[index].last_time.tv_nsec + (debounce_ns) < current_time.tv_nsec)) {
+                    /* execute user command process */
+                    clock_gettime(CLOCK_MONOTONIC, &pfdds[index].last_time);
+                    ret = wfi_execute(&pfdds[index], atoi(buf));
+                    if (ret != 0) {
+                        fprintf(stderr, "wfi execute: %s - code: %d\n", strerror(ret), ret);
+                    }
                 }
             }
             ++index;

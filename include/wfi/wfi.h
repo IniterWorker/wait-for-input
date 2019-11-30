@@ -11,6 +11,7 @@
 
 #include <poll.h>
 #include <stdint.h>
+#include <time.h>
 
 #define GPIO_EDGE_NONE 0
 #define GPIO_EDGE_RISING 1
@@ -23,7 +24,9 @@
 struct wfi_pfdd {
     char *name; /* possible name */
     char *cmd; /* command line execve */
+    struct timespec last_time;
     uint32_t gpio_number;
+    uint32_t debounce_ms;
     uint8_t gpio_edge;
     uint8_t gpio_dir;
     uint8_t is_endfixed;
