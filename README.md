@@ -47,14 +47,16 @@ See more examples  `./example`
             "gpio_number": 22,
             "sh": "echo btn network reset",
             "edge": "falling",
-            "direction": "in"
+            "direction": "in",
+            "debounce": 200 // ms
         },
         {
             "name": "btn_reboot",
             "gpio_number": 27,
             "sh": "echo reboot",
             "edge": "falling",
-            "direction": "in"
+            "direction": "in",
+            "debounce": 2000 // ms
         }
     ]
 }
