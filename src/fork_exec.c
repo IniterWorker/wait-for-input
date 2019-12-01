@@ -25,7 +25,9 @@ fork_sh_execute(const char *command) {
     tab[0] = "sh";
     tab[1] = "-c";
     tab[2] = (char *)command;
-    tab[3] = 0;
+    tab[3] = NULL;
+    status = 0;
+
     /* do fork and sh exec */
     if ((pid = fork()) < 0) {
         /* parent exec */
@@ -34,14 +36,14 @@ fork_sh_execute(const char *command) {
     } else if (pid == 0) {
         /* child exec */
         int ret = 0;
-        if ((ret = execvp("/bin/sh", &tab[0])) != 0) {
+        execvp(tab[0], &tab[0]);
+        if (ret != 0) {
             fprintf(stderr, "Error exec: %s\n", strerror(errno));
             fprintf(stderr, "Error command: %s\n", command);
-            return ret;
         }
-        return ret;
+        _exit(ret);
     } else {
-        while (wait(&status) != pid);
-        return EXIT_SUCCESS;
+        waitpid(pid, &status, 1);
+        return status;
     }
 }
