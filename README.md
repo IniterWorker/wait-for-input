@@ -36,32 +36,34 @@ See more examples  `./example`
 
 #### Advanced
 
+Advanced example with curl and avanced options.
+
 ```json
 {
-    "poll": {
-        "maxfd": 128,
-        "timeout": -1
-    },
-    "gpios": [
-        {
-            "name": "btn_reset_network",
-            "gpio_number": 22,
-            "sh": "echo btn network reset",
-            "edge": "falling",
-            "direction": "in",
-            "debounce": 200,
-            "allow_already_exported": true
-        },
-        {
-            "name": "btn_reboot",
-            "gpio_number": 27,
-            "sh": "echo reboot",
-            "edge": "falling",
-            "direction": "in",
-            "debounce": 2000,
-            "allow_already_exported": true
-        }
-    ]
+	"poll": {
+		"maxfd": 128,
+		"timeout": -1
+	},
+	"gpios": [
+		{
+			"name": "btn_reset_inc",
+			"gpio_number": 22,
+			"sh": "curl -d '+1' -XPATCH https://kvdb.io/${API_TOKEN}/hits",
+			"edge": "falling",
+			"direction": "in",
+			"debounce": 200,
+			"allow_already_exported": true
+		},
+		{
+			"name": "btn_dec",
+			"gpio_number": 27,
+			"sh": "curl -d '-1' -XPATCH https://kvdb.io/${API_TOKEN}/hits",
+			"edge": "falling",
+			"direction": "in",
+			"debounce": 2000,
+			"allow_already_exported": true
+		}
+	]
 }
 ```
 

@@ -5,18 +5,18 @@
 	},
 	"gpios": [
 		{
-			"name": "btn_reset_network",
+			"name": "btn_reset_inc",
 			"gpio_number": 22,
-			"sh": "echo btn network reset",
+			"sh": "curl -d '+1' -XPATCH https://kvdb.io/${API_TOKEN}/hits",
 			"edge": "falling",
 			"direction": "in",
 			"debounce": 200,
 			"allow_already_exported": true
 		},
 		{
-			"name": "btn_reboot",
+			"name": "btn_dec",
 			"gpio_number": 27,
-			"sh": "echo reboot",
+			"sh": "curl -d '-1' -XPATCH https://kvdb.io/${API_TOKEN}/hits",
 			"edge": "falling",
 			"direction": "in",
 			"debounce": 2000,
