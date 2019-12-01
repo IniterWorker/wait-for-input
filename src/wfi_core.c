@@ -15,15 +15,17 @@
 
 static int
 __core_gpio_attach(struct wfi_core *core, int index) {
-    if (wfi_gpio_export(core->pfdds[index].gpio_number, core->pfdds[index].name) < 0) {
-        fprintf(stderr, "%s: export failed\n", __func__);
-        return -1;
+    if (wfi_gpio_export(core->pfdds[index].gpio_number, core->pfdds[index].name) != 0) {
+        if (!core->pfdds[index].is_al_exp) {
+            fprintf(stderr, "%s: export failed\n", __func__);
+            return -1;
+        }
     }
-    if (wfi_gpio_direction(core->pfdds[index].gpio_number, core->pfdds[index].gpio_dir) < 0) {
+    if (wfi_gpio_direction(core->pfdds[index].gpio_number, core->pfdds[index].gpio_dir) != 0) {
         fprintf(stderr, "%s: direction set failed\n", __func__);
         return -1;
     }
-    if (wfi_gpio_edge(core->pfdds[index].gpio_number, core->pfdds[index].gpio_edge) < 0) {
+    if (wfi_gpio_edge(core->pfdds[index].gpio_number, core->pfdds[index].gpio_edge) != 0) {
         fprintf(stderr, "%s: edge set failed\n", __func__);
         return -1;
     }

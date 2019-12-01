@@ -73,6 +73,7 @@ wfi_parse_json_gpios(struct wfi_core *core, cJSON *json_wfi) {
         cJSON *gpio_direction = cJSON_GetObjectItemCaseSensitive(json_gpio, "direction");
         cJSON *gpio_edge = cJSON_GetObjectItemCaseSensitive(json_gpio, "edge");
         cJSON *gpio_debounce = cJSON_GetObjectItemCaseSensitive(json_gpio, "debounce");
+        cJSON *gpio_al_exp = cJSON_GetObjectItemCaseSensitive(json_gpio, "allow_already_exported");
 
         if (index >= core->maxfd) {
             fprintf(stderr, "wfi json parse: limit of %d gpio raised\n", core->maxfd);
@@ -124,6 +125,14 @@ wfi_parse_json_gpios(struct wfi_core *core, cJSON *json_wfi) {
         } else {
             fprintf(stderr, "wfi json parse: no gpio number provided\n");
             return -1;
+        }
+
+        if (cJSON_IsBool(gpio_al_exp)) {
+            printf("Checking gpio debounce \"%d\" ms\n", gpio_al_exp->valueint);
+            core->pfdds[index].is_al_exp = gpio_al_exp->valueint;
+        } else {
+            core->pfdds[index].is_al_exp = 1; // ms
+            printf("Default gpio allow_already_exported \"%d\"\n", core->pfdds[index].is_al_exp);
         }
 
         if (cJSON_IsNumber(gpio_debounce)) {

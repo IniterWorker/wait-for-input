@@ -30,6 +30,7 @@ struct wfi_pfdd {
     uint8_t gpio_edge;
     uint8_t gpio_dir;
     uint8_t is_endfixed;
+    uint8_t is_al_exp; /* allow use already exported gpio */
 };
 
 struct wfi_core {

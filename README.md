@@ -35,6 +35,7 @@ See more examples  `./example`
 ```
 
 #### Advanced
+
 ```json
 {
     "poll": {
@@ -48,7 +49,8 @@ See more examples  `./example`
             "sh": "echo btn network reset",
             "edge": "falling",
             "direction": "in",
-            "debounce": 200 // ms
+            "debounce": 200,
+            "allow_already_exported": true
         },
         {
             "name": "btn_reboot",
@@ -56,11 +58,14 @@ See more examples  `./example`
             "sh": "echo reboot",
             "edge": "falling",
             "direction": "in",
-            "debounce": 2000 // ms
+            "debounce": 2000,
+            "allow_already_exported": true
         }
     ]
 }
 ```
+
+__NOTE__ : debounce unit **ms**
 
 ### Simple
 
