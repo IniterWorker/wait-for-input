@@ -207,26 +207,28 @@ int wfi_parse_json(struct wfi_core *core, const char *buffer)
 
 	if (wfi_parse_json_poll(core, json_wfi) < 0)
 	{
+		fprintf(stderr, "%s: wfi_parse_json_poll failed\n", __func__);
 		cJSON_Delete(json_wfi);
 		return -1;
 	}
 
 	if ((core->pfdds = calloc(core->maxfd, sizeof(struct wfi_pfdd))) == NULL)
 	{
-		fprintf(stderr, "wfi json core malloc: malloc failed\n");
+		fprintf(stderr, "%s:pfdds calloc failed\n", __func__);
 		cJSON_Delete(json_wfi);
 		return -1;
 	}
 
 	if ((core->pfds = calloc(core->maxfd, sizeof(struct pollfd))) == NULL)
 	{
-		fprintf(stderr, "wfi json core malloc: malloc failed\n");
+		fprintf(stderr, "%s:pfds calloc failed\n", __func__);
 		cJSON_Delete(json_wfi);
 		return -1;
 	}
 
 	if (wfi_parse_json_gpios(core, json_wfi) < 0)
 	{
+		fprintf(stderr, "%s:parse gpios failed\n", __func__);
 		cJSON_Delete(json_wfi);
 		return -1;
 	}
