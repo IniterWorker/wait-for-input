@@ -24,6 +24,8 @@ __core_gpio_attach(struct wfi_core *core, int index)
 			return -1;
 		}
 	}
+	/* work around */
+	sleep(1);
 	if (wfi_gpio_direction(core->pfdds[index].gpio_number, core->pfdds[index].gpio_dir) != 0)
 	{
 		fprintf(stderr, "%s: direction set failed\n", __func__);
