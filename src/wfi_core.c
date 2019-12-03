@@ -47,6 +47,7 @@ __core_gpio_release(struct wfi_core *core, int index)
 		fprintf(stderr, "%s: unexport failed\n", __func__);
 		return -1;
 	}
+	return 0;
 }
 
 int wfi_core_attach(struct wfi_core *core)

@@ -57,7 +57,7 @@ int wfi_wait_for_input(struct wfi_core *core)
 				{
 					/* execute user command process */
 					clock_gettime(CLOCK_MONOTONIC, &pfdds[index].last_time);
-					ret = wfi_execute(&pfdds[index], atoi(buf));
+					ret = wfi_execute(&pfdds[index], atoi((const char *)&buf[0]));
 					if (ret != 0)
 					{
 						fprintf(stderr, "wfi execute: %s - code: %d\n", strerror(ret), ret);

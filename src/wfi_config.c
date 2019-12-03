@@ -36,6 +36,7 @@ wfi_parse_json_poll(struct wfi_core *core, cJSON *json_wfi)
 		else
 		{
 			core->timeout = -1;
+			printf("Default timeout: %d\n", core->timeout);
 		}
 
 		/* core->maxfd configuration */
@@ -61,6 +62,7 @@ wfi_parse_json_poll(struct wfi_core *core, cJSON *json_wfi)
 		core->timeout = -1;
 		core->maxfd = 128;
 	}
+	return 0;
 }
 
 int wfi_parse_json_gpios(struct wfi_core *core, cJSON *json_wfi)
@@ -90,7 +92,7 @@ int wfi_parse_json_gpios(struct wfi_core *core, cJSON *json_wfi)
 
 		if (index >= core->maxfd)
 		{
-			fprintf(stderr, "wfi json parse: limit of %d gpio raised\n", core->maxfd);
+			fprintf(stderr, "wfi json parse: limit of %ld gpio raised\n", core->maxfd);
 			return -1;
 		}
 
@@ -194,7 +196,6 @@ int wfi_parse_json_gpios(struct wfi_core *core, cJSON *json_wfi)
 int wfi_parse_json(struct wfi_core *core, const char *buffer)
 {
 	cJSON *json_wfi;
-	int index = 0;
 
 	json_wfi = cJSON_Parse(buffer);
 	if (json_wfi == NULL)
