@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.0)
 project(wait_for_input C)
 
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS}  "-O3 -Wall -Werror -pedantic")
-set(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG}  "-O0 -ggdb")
-set(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE} "-O3 -Wall -Werror -pedantic")
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS}  " -03 -Wall -Werror -pedantic")
+set(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG}  " -O0 -ggdb")
+set(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE} " -O3 -Wall -Werror -pedantic")
 
 include_directories(include)
 
